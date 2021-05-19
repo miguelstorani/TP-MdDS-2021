@@ -10,6 +10,13 @@ CREATE TYPE relation AS ENUM (
 'Padre', 'Madre', 'Hermano', 'Hermana'
 );
 
+CREATE TABLE public.School (
+idSchool INTEGER NOT NULL,
+cue INTEGER NOT NULL,
+password VARCHAR(20) NOT NULL,
+    PRIMARY KEY (idSchool)
+);
+
 CREATE TABLE public.Student (
 idStudent INTEGER NOT NULL,
 name VARCHAR(20) NOT NULL,
@@ -53,13 +60,9 @@ money INTEGER NOT NULL,
 live BOOLEAN NOT NULL,
 relation RELATION NOT NULL,
 idScholarship INTEGER NOT NULL,
+idSchool INTEGER NOT NULL,
 FOREIGN KEY(idScholarship) REFERENCES public.Scholarship (id),
+FOREIGN KEY(idSchool) REFERENCES public.School (idSchool),
 PRIMARY KEY (idParent)
 );
 
-CREATE TABLE public.School (
-idSchool INTEGER NOT NULL,
-cue INTEGER NOT NULL,
-password VARCHAR(20) NOT NULL,
-    PRIMARY KEY (idSchool)
-);
