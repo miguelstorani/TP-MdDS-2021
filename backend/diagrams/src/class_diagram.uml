@@ -1,0 +1,63 @@
+@startuml
+
+Title: Diagrama de clases
+
+Class AlumnoSolicitante {
+-id: number
+	-apellidos: text
+- nombre: text
+	-grado: number
+	-anio: number
+	-sala: number
+	-seccion: number
+	-turno: number
+	-dni: number
+	-nacionalidad: text
+	-fecha_nacimiento: date
+	-cuil: number
+	-domicilio: text
+	-codigo_postal: number
+	-localidad: text
+	-barrio: text
+	-email: text
+	-telefono: number
+	-establecimientoEducativo: EstablecimientoEducativo
+
+
+}
+
+Class FamiliarDeclarados {
+	-id: number
+	-apellido: text
+	-nombre: text
+	-edad: number
+	-ocupacion: text
+	-lugar_de_trabajo: text
+	-ingresos: number
+    -establecimiento_educativo: EstablecimientoEducativo
+	-convive: bool
+	-relacion: TipoRelacionEnm
+}
+
+Class SolicitudDeBeca {
+	-id: number
+	-alumno_solicitante: AlumnoSolicitante
+-estado: EstadoBecaEnum
+-tipoBeca: TipoBecaEnum
+-familiaresDeclarados: List<FamiliarDeclarado>
+}
+
+Class EstablecimientoEducativo{
+	-id: number
+-cue: number
+-contrasenia: text
+}
+
+
+AlumnoSolicitante "1..1" --> "0..*" EstablecimientoEducativo 
+AlumnoSolicitante "1..1" <-- "0..*"   SolicitudDeBeca
+SolicitudDeBeca "1..1" --> "0..*"  FamiliarDeclarados
+FamiliarDeclarados "0..*" --> "0..1" EstablecimientoEducativo
+
+
+@enduml

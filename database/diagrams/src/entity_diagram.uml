@@ -1,0 +1,61 @@
+@startuml
+Title: Diagrama Entidad Relacion
+
+entity EstablecimientoEducativo {
+*id: number <<PK>>
+*cue: number
+*contrasenia: text
+
+}
+
+
+entity AlumnoSolicitante {
+	*id: number <<PK>>
+	*apellidos: text
+	*nombre: text
+	*grado: number
+	*anio: number
+	*sala: number
+	*seccion: number
+	*turno: number
+	*dni: number
+	*nacionalidad: text
+	*fecha_nacimiento: date
+	*cuil: number
+	*domicilio: text
+	*codigo_postal: number
+	*localidad: text
+	*barrio: text
+	*email: text
+	*telefono: number
+}
+
+
+entity FamiliaresDeclarados {
+	*id: number <<PK>>
+	*apellido: text
+	*nombre: text
+	*edad: number
+	*ocupacion: text
+	*lugar_de_trabajo: text
+	*ingresos: number(12,2)
+*establecimiento_educativo: <<FK>> EstablecimientoEducativo 
+	*convive: bool
+	*relacion: enum(PADRE, MADRE, HERMANO)
+	*solicitud_de_beca: <<FK>> SolicitudDeBeca
+}
+
+entity SolicitudDeBeca {
+	*id: number <<PK>>
+	*alumno_solicitante: <<FK>> AlumnoSolicitante
+*estado: enum(EN_ESTUDIO, RECHAZADA, APROBADA)
+*tipoBeca: enum(MEDIA_BECA, BECA_TOTAL)
+}
+
+AlumnoSolicitante }|--o| EstablecimientoEducativo 
+AlumnoSolicitante |o--{ SolicitudDeBeca
+SolicitudDeBeca |o--{ FamiliaresDeclarados
+FamiliaresDeclarados }o--o| EstablecimientoEducativo
+
+
+@enduml
